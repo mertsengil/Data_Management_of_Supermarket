@@ -34,7 +34,7 @@ class Supermarket():
     def disconnect(self):
         self.connection.close()
 
-
+    #print all products
     def show_all_products(self):
         show_command ="SELECT * from SUPERMARKET"
         self.cursor.execute(show_command)
@@ -48,19 +48,22 @@ class Supermarket():
                 print(product)
                 print("--------------------------------")
 
-
+    #add a new product with this function
     def add_new_product(self,data):
         add_command = "INSERT INTO SUPERMARKET VALUES {}"
         data = (kind,name,price,stock)
         self.cursor.execute(add_command.format(data))
         self.connection.commit()
-
+        
+        
+    #delete a product with this function
     def delete_product(self,name):
 
         delete_command="DELETE FROM SUPERMARKET where name = ? "
         self.cursor.execute(delete_command,(name,))
         self.connection.commit()
-
+    
+    #update the stock number of a product with this function
     def update_stock(self,name,new_stock):
         select_command="SELECT * FROM SUPERMARKET where name = ?"
         self.cursor.execute(select_command,(name,))
@@ -76,7 +79,9 @@ class Supermarket():
 
             self.cursor.execute(update_command,(stock,name))
             self.connection.commit()
-
+    
+    
+    #update the price with this function
     def update_price(self,name,new_price):
         select_command_1="SELECT * FROM SUPERMARKET where name = ?"
         self.cursor.execute(select_command_1,(name,))
